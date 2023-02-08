@@ -4,13 +4,43 @@
   "description": "bentleyer three",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server --mode=development --open",
+    "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-loader": "^9.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "4.3",
+    "html-webpack-plugin": "4",
+    "postcss-loader": "^4.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.1.1",
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1",
     "webpack": "4",
-    "webpack-cli": "4"
+    "webpack-cli": "4",
+    "webpack-dev-server": "^4.11.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "autoprefixer": "^10.4.13",
+    "dat.gui": "^0.7.9",
+    "eslint": "^8.31.0",
+    "gsap": "^3.11.4",
+    "mini-css-extract-plugin": "0.11",
+    "portfinder": "^1.0.32",
+    "postcss": "7.0.32",
+    "three": "^0.149.0",
+    "url-loader": "^4.1.1"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "last 3 iOS versions"
+  ]
 }
