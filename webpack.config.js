@@ -59,7 +59,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
                 ],
             },
             {
-              test: /\.(png|svg|jpg|gif)$/,
+              test: /\.(png|svg|jpg|gif|hdr)$/,
               use: {
                   loader: 'url-loader'
               }
