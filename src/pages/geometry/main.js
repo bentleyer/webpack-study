@@ -46,32 +46,39 @@ camera.position.set(0, 0, 15)
 //环境光
 const ambientLight = new THREE.AmbientLight('#fff', 0.5)
 // 直线光
-const directionalLight = new THREE.DirectionalLight('#fff', 0.5)
+// const directionalLight = new THREE.DirectionalLight('#fff', 0.5)
+// 点光源
+const directionalLight = new THREE.PointLight('#f00', 0.5)
 directionalLight.castShadow = true
 // 设置模糊度
 directionalLight.shadow.radius = 20
 directionalLight.shadow.mapSize.set(2048, 2048)
 // 设置位置
-directionalLight.position.set(10, 10, 10)
+
+
+const pointLightBall = new THREE.Mesh(
+    new THREE.SphereGeometry(0.1, 10, 10),
+    new THREE.MeshBasicMaterial({
+        color: '#f00'
+    })
+) 
+pointLightBall.position.set(3, 3, 3)
+
+pointLightBall.add(directionalLight)
+scene.add(pointLightBall)
+
 
 // 设置阴影范围
-directionalLight.shadow.camera.top = 5
-directionalLight.shadow.camera.bottom = -5
-directionalLight.shadow.camera.left = -5
-directionalLight.shadow.camera.right = 5
-directionalLight.shadow.camera.far = 500
-directionalLight.shadow.camera.near = 0.5
+// directionalLight.shadow.camera.top = 5
+// directionalLight.shadow.camera.bottom = -5
+// directionalLight.shadow.camera.left = -5
+// directionalLight.shadow.camera.right = 5
+// directionalLight.shadow.camera.far = 500
+// directionalLight.shadow.camera.near = 0.5
 
-/* gui.add(directionalLight.shadow.camera, 'near').min(0).max(60).onChange(
-    () => {
-        // 更新投影矩阵
-        directionalLight.shadow.camera.updateProjectionMatrix()
-    }
-) */
+
 
 scene.add(ambientLight)
-scene.add(directionalLight)
-
 
 // scene.add(mesh)
 
@@ -84,8 +91,6 @@ event.onLoad = () => {
 }
 console.log('loadingManagerDiv', loadingManagerDiv)
 event.onProgress = (e, num, total) => {
-    console.log('加载中',  num, total) 
-    console.log('加载进度：', ((num / total) * 100).toFixed(2) + '%' )
     loadingManagerDiv && (loadingManagerDiv.innerHTML = '加载进度：' + ((num / total) * 100).toFixed(2) + '%')
 }
 
@@ -105,8 +110,6 @@ const getLoaderManager = () => {
     }
     console.log('loadingManagerDiv', loadingManagerDiv)
     event.onProgress = (e, num, total) => {
-        console.log('加载中',  num, total) 
-        console.log('加载进度：', ((num / total) * 100).toFixed(2) + '%' )
         // loadingManagerDiv && (loadingManagerDiv.innerHTML = '加载进度：' + ((num / total) * 100).toFixed(2) + '%')
     }
 
@@ -222,7 +225,7 @@ console.log('cube', cube, cubeGeometry)
 
 // 设置平面
 
-const planeGeometry = new THREE.PlaneGeometry(10, 10, 200, 200)
+const planeGeometry = new THREE.PlaneGeometry(40, 40, 200, 200)
 const material = new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide
 })
@@ -244,12 +247,22 @@ plane.position.set(0, -1 ,0)
 plane.rotation.x = PI / 2
 
 scene.add(plane)
+// 聚光灯的目标
+directionalLight.angle = PI / 6
+directionalLight.target = sphere
+directionalLight.distance = 0
+directionalLight.decay = 0
+gui.add(directionalLight, 'distance').min(0).max(20)
+gui.add(directionalLight, 'decay').min(0).max(5).step(0.1)
+gui.add(directionalLight, 'intensity').min(0).max(3).step(0.1)
 
-// const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-
-
-// 打印
-
+gui.add(directionalLight.shadow.camera, 'near').min(0).max(20).onChange(
+    () => {
+        // 更新投影矩阵
+        directionalLight.shadow.camera.updateProjectionMatrix()
+    }
+)
+gui.add(sphere.position, 'x').min(0).max(20).step(0.1).name('移动x')
 //几何体添加入场景
 // scene.add(cube)
 
@@ -260,7 +273,7 @@ const renderer = new THREE.WebGLRenderer()
 // 设置渲染尺寸
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.shadowMap.enabled = true
-
+renderer.physicallyCorrectLights = true
 // 将webgl渲染的内容添加到body中
 document.body.appendChild(renderer.domElement)
 
@@ -278,28 +291,13 @@ const axesHelper = new THREE.AxesHelper(5)
 scene.add(axesHelper)
 
 // 设置时间
-// const clock = new THREE.Clock()
+const clock = new THREE.Clock()
 
-
-window.addEventListener('dblclick', () => {
-    // 双击控制动画
-    // if (animate.isActive()) {
-    //     animate.pause()
-    // } else {
-    //     animate.resume()
-    // }
-    //双击进入全屏
-    const fullscreenElement = document.fullscreenElement
-     if (!fullscreenElement) {
-        renderer.domElement.requestFullscreen()
-     } else {
-        // 退出全屏
-        document.exitFullscreen()
-     }
-})
 
 function render() {
-
+    const time = clock.getElapsedTime()
+    pointLightBall.position.x = Math.sin(time) * 3
+    pointLightBall.position.z = Math.cos(time) * 3
     controls.update()
     // cube.rotation.x += 0.01
     renderer.render(scene, camera)
@@ -328,11 +326,7 @@ window.addEventListener('resize', () => {
 // 引入gui
 // const gui = new dat.GUI()
 // 设置位置
-/* gui.add(cube.position, 'x').min(0).max(20).step(0.1).name('移动x').onChange(() => {
-    console.log('gui')
-}).onFinishChange((value) => {
-    console.log('onFinishChange', value)
-}) */
+
 // 设置颜色
 /* const params = {
     color: '#0046ff',

@@ -11,11 +11,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           'index': path.join(__dirname, '/src/index.js'), // 入口文件,
           'start': path.join(__dirname, '/src/pages/start/main.js'), // 入口文件,
           'geometry': path.join(__dirname, '/src/pages/geometry/main.js'), // 入口文件
+          'point': path.join(__dirname, '/src/pages/point/main.js'), // 入口文件
         },
         output: {
           filename: '[name].bundle.js',
           path: path.resolve(__dirname, './dist'),
           chunkFilename: '[name].bundle.js',
+        },
+        resolve: {
+          alias: {
+            '@':  path.resolve(__dirname, './src'),
+          }
         },
         devServer: {
           hot: true,
@@ -81,6 +87,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           new HtmlWebpackPlugin({ template: './src/pages/start/index.html', chunks: ['start'], filename: 'start.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/geometry/index.html', chunks: ['geometry'], filename: 'geometry.html' }),
           new HtmlWebpackPlugin({ template: './src/index.html', chunks: ['index'], filename: 'index.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/geometry/index.html', chunks: ['point'], filename: 'point.html' }),
           // new HtmlWebpackPlugin({ template: './src/index.html'}),
           new webpack.HotModuleReplacementPlugin(),
           new MiniCssExtractPlugin()
