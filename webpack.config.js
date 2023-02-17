@@ -12,6 +12,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           'start': path.join(__dirname, '/src/pages/start/main.js'), // 入口文件,
           'geometry': path.join(__dirname, '/src/pages/geometry/main.js'), // 入口文件
           'point': path.join(__dirname, '/src/pages/point/main.js'), // 入口文件
+          'webgl': path.join(__dirname, '/src/pages/webgl/main.js'), // 入口文件
         },
         output: {
           filename: '[name].bundle.js',
@@ -88,6 +89,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           new HtmlWebpackPlugin({ template: './src/pages/geometry/index.html', chunks: ['geometry'], filename: 'geometry.html' }),
           new HtmlWebpackPlugin({ template: './src/index.html', chunks: ['index'], filename: 'index.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/geometry/index.html', chunks: ['point'], filename: 'point.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/webgl/index.html', chunks: ['webgl'], filename: 'webgl.html' }),
           // new HtmlWebpackPlugin({ template: './src/index.html'}),
           new webpack.HotModuleReplacementPlugin(),
           new MiniCssExtractPlugin()
