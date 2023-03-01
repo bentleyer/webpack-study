@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="211px" height="32px" viewBox="0 0 211 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>翻牌器背景备份</title>
+    <g id="大屏" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.4" opacity="0.5">
+        <g id="大屏-日期2" transform="translate(-20.000000, -9.000000)" fill="#4886C4">
+            <path d="M22,9 L229,9 C230.104569,9 231,9.8954305 231,11 L231,39 C231,40.1045695 230.104569,41 229,41 L22,41 C20.8954305,41 20,40.1045695 20,39 L20,11 C20,9.8954305 20.8954305,9 22,9 Z" id="翻牌器背景备份" transform="translate(125.500000, 25.000000) scale(1, -1) translate(-125.500000, -25.000000) "></path>
+        </g>
+    </g>
+</svg>

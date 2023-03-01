@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>大屏1920 1080背景</title>
+    <defs>
+        <linearGradient x1="0%" y1="45.8805155%" x2="100%" y2="45.8805155%" id="linearGradient-1">
+            <stop stop-color="#131820" offset="0%"></stop>
+            <stop stop-color="#131820" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-11.4%" y="-11.4%" width="122.9%" height="122.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="50" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="大屏1920-1080背景" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形备份-3" fill="#000001" x="0" y="0" width="1920" height="1080"></rect>
+        <g id="遮罩-下备份" transform="translate(960.000000, 201.000000) scale(1, -1) rotate(-90.000000) translate(-960.000000, -201.000000) translate(760.000000, -759.000000)" fill="url(#linearGradient-1)">
+            <rect id="矩形" x="0" y="0" width="400" height="1920"></rect>
+        </g>
+        <circle id="椭圆形" fill="#0CAFBA" opacity="0.0518232073" filter="url(#filter-2)" cx="959.5" cy="656" r="656"></circle>
+    </g>
+</svg>

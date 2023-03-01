@@ -2,8 +2,6 @@ import * as THREE from 'three'
 // 导入轨迹控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-import * as dat from 'dat.gui'
-
 // 导入图片
 import door from './textures/door/color.jpg'
 import alphaDoor from './textures/door/alpha.jpg'
@@ -24,15 +22,22 @@ import ny from './textures/environmentMaps/0/ny.jpg'
 import pz from './textures/environmentMaps/0/pz.jpg'
 import nz from './textures/environmentMaps/0/nz.jpg'
 
-
-const gui = new dat.GUI()
+//加载hdr
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import hdr from './textures/hdr/002.hdr'
+const rgbeLoader = new RGBELoader()
+rgbeLoader.loadAsync(hdr).then((texture) => {
+    texture.mapping = THREE.EquirectangularReflectionMapping
+    scene.background = texture
+    scene.environment = texture
+})
 
 // 导入动画库
 // import gsap from 'gsap'
 
 // import * as dat from 'dat.gui'
 console.log('Three', THREE)
-const PI = Math.PI
+// const PI = Math.PI
 
 // 创建场景
 const scene = new THREE.Scene()
@@ -46,39 +51,38 @@ camera.position.set(0, 0, 15)
 //环境光
 const ambientLight = new THREE.AmbientLight('#fff', 0.5)
 // 直线光
-// const directionalLight = new THREE.DirectionalLight('#fff', 0.5)
-// 点光源
-const directionalLight = new THREE.PointLight('#f00', 0.5)
-directionalLight.castShadow = true
-// 设置模糊度
-directionalLight.shadow.radius = 20
-directionalLight.shadow.mapSize.set(2048, 2048)
+const directionalLight = new THREE.DirectionalLight('#fff', 0.5)
 // 设置位置
-
-
-const pointLightBall = new THREE.Mesh(
-    new THREE.SphereGeometry(0.1, 10, 10),
-    new THREE.MeshBasicMaterial({
-        color: '#f00'
-    })
-) 
-pointLightBall.position.set(3, 3, 3)
-
-pointLightBall.add(directionalLight)
-scene.add(pointLightBall)
-
-
-// 设置阴影范围
-// directionalLight.shadow.camera.top = 5
-// directionalLight.shadow.camera.bottom = -5
-// directionalLight.shadow.camera.left = -5
-// directionalLight.shadow.camera.right = 5
-// directionalLight.shadow.camera.far = 500
-// directionalLight.shadow.camera.near = 0.5
-
-
+directionalLight.position.set(10, 10, 10)
 
 scene.add(ambientLight)
+scene.add(directionalLight)
+
+
+// 添加物体
+//创建几何体
+const geometry = new THREE.BufferGeometry()
+
+const vectors = new Float32Array([
+    -1.0, -1.0, 1.0, 
+    1.0, -1.0, 1.0,
+    1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0,
+    -1.0, 1.0, 1.0,
+    -1.0, -1.0, 1.0,
+])
+
+console.log('geometry', geometry)
+
+geometry.setAttribute('position', new THREE.BufferAttribute(vectors, 3))
+
+
+
+const material = new THREE.MeshBasicMaterial({
+    color: '#05d'
+})
+
+const mesh = new THREE.Mesh(geometry, material)
 
 // scene.add(mesh)
 
@@ -91,6 +95,8 @@ event.onLoad = () => {
 }
 console.log('loadingManagerDiv', loadingManagerDiv)
 event.onProgress = (e, num, total) => {
+    console.log('加载中',  num, total) 
+    console.log('加载进度：', ((num / total) * 100).toFixed(2) + '%' )
     loadingManagerDiv && (loadingManagerDiv.innerHTML = '加载进度：' + ((num / total) * 100).toFixed(2) + '%')
 }
 
@@ -110,6 +116,8 @@ const getLoaderManager = () => {
     }
     console.log('loadingManagerDiv', loadingManagerDiv)
     event.onProgress = (e, num, total) => {
+        console.log('加载中',  num, total) 
+        console.log('加载进度：', ((num / total) * 100).toFixed(2) + '%' )
         // loadingManagerDiv && (loadingManagerDiv.innerHTML = '加载进度：' + ((num / total) * 100).toFixed(2) + '%')
     }
 
@@ -161,8 +169,8 @@ const streetEnvMap = cubeTextureLoader.load(
 const sphereGeometry = new THREE.SphereGeometry(1, 20, 20)
 
 const sphereMaterial = new THREE.MeshStandardMaterial({
-    // metalness: 0.7,
-    // roughness: 0.1,
+    metalness: 0.7,
+    roughness: 0.1,
     // envMap: streetEnvMap
 })
 
@@ -171,14 +179,12 @@ const sphere = new THREE.Mesh(
     sphereMaterial
 )
 
-sphere.castShadow = true
-
 scene.add(sphere)
 
 // 场景添加背景
-// scene.background = streetEnvMap
-// // 场景物体添加默认环境贴图
-// scene.environment = streetEnvMap
+scene.background = streetEnvMap
+// 场景物体添加默认环境贴图
+scene.environment = streetEnvMap
 
 // 设置纹理偏移
 // doorTexture.offset.x = 0.5
@@ -223,19 +229,12 @@ const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 console.log('cube', cube, cubeGeometry)
 // scene.add(cube)
 
-// 设置平面
-
-const planeGeometry = new THREE.PlaneGeometry(40, 40, 200, 200)
-const material = new THREE.MeshStandardMaterial({
-    side: THREE.DoubleSide
-})
+const planeGeometry = new THREE.PlaneGeometry(3, 3, 200, 200)
 
 const plane = new THREE.Mesh(
     planeGeometry,
-    material
+    cubeMaterial
 )
-
-plane.receiveShadow = true
 
 // 增加环境光遮蔽，ao贴图，需要设置uv2
 
@@ -243,26 +242,15 @@ cubeGeometry.setAttribute('uv2', new THREE.BufferAttribute(cubeGeometry.attribut
 
 planeGeometry.setAttribute('uv2', new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 2))
 
-plane.position.set(0, -1 ,0)
-plane.rotation.x = PI / 2
+plane.position.set(5, 0 ,0)
 
 scene.add(plane)
-// 聚光灯的目标
-directionalLight.angle = PI / 6
-directionalLight.target = sphere
-directionalLight.distance = 0
-directionalLight.decay = 0
-gui.add(directionalLight, 'distance').min(0).max(20)
-gui.add(directionalLight, 'decay').min(0).max(5).step(0.1)
-gui.add(directionalLight, 'intensity').min(0).max(3).step(0.1)
 
-gui.add(directionalLight.shadow.camera, 'near').min(0).max(20).onChange(
-    () => {
-        // 更新投影矩阵
-        directionalLight.shadow.camera.updateProjectionMatrix()
-    }
-)
-gui.add(sphere.position, 'x').min(0).max(20).step(0.1).name('移动x')
+// const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
+
+
+// 打印
+
 //几何体添加入场景
 // scene.add(cube)
 
@@ -272,8 +260,7 @@ const renderer = new THREE.WebGLRenderer()
 
 // 设置渲染尺寸
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.shadowMap.enabled = true
-renderer.physicallyCorrectLights = true
+
 // 将webgl渲染的内容添加到body中
 document.body.appendChild(renderer.domElement)
 
@@ -291,13 +278,68 @@ const axesHelper = new THREE.AxesHelper(5)
 scene.add(axesHelper)
 
 // 设置时间
-const clock = new THREE.Clock()
+// const clock = new THREE.Clock()
 
+// 设置动画
+
+/* const animate = gsap.to(cube.position, 
+    { 
+        x: 5,
+        duration: 5,
+        ease: 'back.out(8)',
+        onComplete(params) {
+            console.log('onComplete', params)
+        },
+        onStart(params) {
+            console.log('onStart', params)
+        },
+        // 设置重复次数
+        repeat:3,
+        // 倒放，往返运动
+        yoyo: true,
+        // 延时
+        delay: 2,
+    }
+) */
+// gsap.to(cube.rotation, { x: 2 * PI, duration: 5, repeat: -1})
+
+
+window.addEventListener('dblclick', () => {
+    // 双击控制动画
+    // if (animate.isActive()) {
+    //     animate.pause()
+    // } else {
+    //     animate.resume()
+    // }
+    //双击进入全屏
+    const fullscreenElement = document.fullscreenElement
+     if (!fullscreenElement) {
+        renderer.domElement.requestFullscreen()
+     } else {
+        // 退出全屏
+        document.exitFullscreen()
+     }
+})
 
 function render() {
-    const time = clock.getElapsedTime()
-    pointLightBall.position.x = Math.sin(time) * 3
-    pointLightBall.position.z = Math.cos(time) * 3
+    // time是d当前运行的时间，毫秒为单位
+    // cube.position.x += 0.01
+    // if (cube.position.x > 5) {
+    //     cube.position.x = 0
+    // }
+    // let t = time / 1000 % 5
+    // cube.position.x = t * 1
+    // if (t  > 5) {
+    //     cube.position.x = 0
+    // }
+    // 时钟运行总时长
+    // let time = clock.getElapsedTime()
+    // 两次调用时间间隔，包括getDelta， getElapsedTime调用
+    // let deltaTime = clock.getDelta()
+    // console.log('getElapsedTime', deltaTime)
+    // cube.position.x = time * 1 % 5
+
+
     controls.update()
     // cube.rotation.x += 0.01
     renderer.render(scene, camera)
@@ -326,7 +368,11 @@ window.addEventListener('resize', () => {
 // 引入gui
 // const gui = new dat.GUI()
 // 设置位置
-
+/* gui.add(cube.position, 'x').min(0).max(20).step(0.1).name('移动x').onChange(() => {
+    console.log('gui')
+}).onFinishChange((value) => {
+    console.log('onFinishChange', value)
+}) */
 // 设置颜色
 /* const params = {
     color: '#0046ff',

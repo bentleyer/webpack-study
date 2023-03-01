@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="276px" height="40px" viewBox="0 0 276 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>路径备份 19</title>
+    <defs>
+        <linearGradient x1="-22.4425791%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#3366BE" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#339DCC" stop-opacity="0.4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="大屏" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.599900019">
+        <g id="大屏1920-1080-1227" transform="translate(-539.000000, -779.000000)" fill="url(#linearGradient-1)">
+            <g id="编组-15" transform="translate(539.931040, 779.754717)">
+                <polygon id="路径备份-19" transform="translate(137.553150, 19.622642) scale(-1, 1) translate(-137.553150, -19.622642) " points="63.3999428 0.245283019 0 38.490566 275.106299 39.245283 275.106299 0"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

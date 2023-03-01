@@ -1,62 +1,120 @@
+import * as THREE from "three";
 
-var canvas = document.querySelector('canvas')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+import '@/asset/css/style.css'
 
-// 获取webgl绘制上下文
-var gl = canvas.getContext('webgl')
-//设置窗口大小
-gl.viewport(0, 0, canvas.width, canvas.height)
+// 导入轨迹控制器
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-// 创建顶点着色器
-var vertexShader = gl.createShader(gl.VERTEX_SHADER)
+import * as dat from 'dat.gui'
 
-gl.shaderSource(vertexShader, `
-attribute vec4 a_Position;
-void main() {
-    gl_Position = a_Position;
-} 
-`)
+// 顶点着色器
+import advanceVertexShader from './shader/advance/vertex.glsl'
+import advanceFragmentShader from './shader/advance/fragment.glsl'
 
-gl.compileShader(vertexShader)
+import ca from '@/asset/textures/ca.jpeg'
 
-var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
+const PI = Math.PI
 
-gl.shaderSource(fragmentShader, `
-    void main() {
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+// 创建场景
+const scene = new THREE.Scene()
+
+// 创建相机
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 40)
+
+camera.position.set(0, 0, 30)
+
+// 增加光源
+//环境光
+const ambientLight = new THREE.AmbientLight('#fff', 0.5)
+scene.add(ambientLight)
+
+
+// 添加物体
+
+const textureLoader = new THREE.TextureLoader()
+
+const caTexture = textureLoader.load(ca)
+
+const planeGeometry = new THREE.PlaneGeometry(10, 10, 300, 300)
+
+// 创建着色器材质
+const shaderMaterial = new THREE.RawShaderMaterial({
+    vertexShader: advanceVertexShader,
+    fragmentShader: advanceFragmentShader,
+    side: THREE.DoubleSide,
+    transparent: true,
+    uniforms: {
+        uTime: { 
+            value: 0 
+        },
+        uTexture: {
+            value: caTexture
+        }
     }
-`
-    )
+})
 
-gl.compileShader(fragmentShader)
+const planeMaterial = new THREE.MeshBasicMaterial({
+    color: '#0f0'
+})
 
-var program = gl.createProgram()
-gl.attachShader(program, vertexShader)
-gl.attachShader(program, fragmentShader)
+const plane = new THREE.Mesh(planeGeometry, shaderMaterial)
 
-gl.linkProgram(program)
-
-var vertexBuffer =  gl.createBuffer()
-
-gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
-
-var vertices = new Float32Array([
-    0.0, 0.5,
-    -0.5, -0.5,
-    0.5, -0.5
-])
-
-gl.bufferData(gl.ARRAY_BUFFER,vertices, gl.STATIC_DRAW )
-
-var a_Position = gl.getAttribLocation(program, 'a_Position')
-
-gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0)
-
-gl.enableVertexAttribArray(a_Position)
+scene.add(plane)
 
 
-gl.drawArrays(gl.TRIANGLES, 0, 3)
+// 纹理加载
 
-console.log('gl', gl, program)
+// 创建物体
 
+// 初始化渲染器
+
+const renderer = new THREE.WebGLRenderer()
+
+// 设置渲染尺寸
+renderer.setSize(window.innerWidth, window.innerHeight)
+
+// 将webgl渲染的内容添加到body中
+document.body.appendChild(renderer.domElement)
+
+// 使用渲染器渲染
+renderer.render(scene, camera)
+
+// 创建轨道控制器
+const controls = new OrbitControls(camera, renderer.domElement)
+// 设置控制器阻尼
+controls.enableDamping = true
+
+// 添加坐标辅助器, 红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴.
+const axesHelper = new THREE.AxesHelper(5)
+
+scene.add(axesHelper)
+
+// 设置时间
+const clock = new THREE.Clock()
+
+function render() {
+    const time = clock.getElapsedTime()
+    shaderMaterial.uniforms.uTime.value = time
+    controls.update()
+    // points1.rotation.x = time * 0.3
+    // cube.rotation.x += 0.01
+    renderer.render(scene, camera)
+    // 下一帧渲染调用
+    requestAnimationFrame(render)
+}
+
+render()
+
+
+// 监听画面变化，更新视图
+window.addEventListener('resize', () => {
+    // 重新计算画面
+    // 更新摄像头
+    camera.aspect = window.innerWidth / window.innerHeight
+    // 更新摄像机投影矩阵
+    camera.updateProjectionMatrix()
+    // 更新渲染器
+    renderer.setSize(window.innerWidth , window.innerHeight )
+    // 设置像素比
+    renderer.setPixelRatio(window.devicePixelRatio)
+})

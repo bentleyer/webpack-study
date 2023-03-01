@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1921px" height="68px" viewBox="0 0 1921 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 40备份</title>
+    <defs>
+        <linearGradient x1="50%" y1="-57.4597921%" x2="50%" y2="99.0552058%" id="linearGradient-1">
+            <stop stop-color="#000812" offset="0%"></stop>
+            <stop stop-color="#362168" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="178.293353%" y1="27.6063012%" x2="3.5145489%" y2="27.6063012%" id="linearGradient-2">
+            <stop stop-color="#000812" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#362168" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="105.352531%" y1="49.9944856%" x2="3.5145489%" y2="49.9878181%" id="linearGradient-3">
+            <stop stop-color="#000812" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#362168" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="166.989474%" y1="27.6063012%" x2="3.5145489%" y2="27.6063012%" id="linearGradient-4">
+            <stop stop-color="#000812" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#362168" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="105.352531%" y1="49.9931864%" x2="3.5145489%" y2="49.984948%" id="linearGradient-5">
+            <stop stop-color="#000812" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#362168" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-6" points="830.981299 58 1088.9813 58 1091.9813 61 827.981299 61"></polygon>
+        <filter x="-4.0%" y="-350.0%" width="108.0%" height="800.0%" filterUnits="objectBoundingBox" id="filter-7">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.260308689   0 0 0 0 0.787112444   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="32.5648718%" y1="79.5168003%" x2="55.6509593%" y2="58.2290983%" id="linearGradient-8">
+            <stop stop-color="#7132E0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="大屏" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大屏1920-1080-1227" transform="translate(0.000000, -1.000000)">
+            <g id="编组-40备份" transform="translate(0.018701, 1.000000)">
+                <polygon id="矩形" fill="url(#linearGradient-1)" points="619.016455 0 1309.81254 0 1269.81254 61 1240.93754 61 1235.96098 56 687.465674 56 682.981299 61 659.016455 61"></polygon>
+                <g id="编组-2" transform="translate(1288.981299, 10.000000)">
+                    <polygon id="矩形备份-12" fill="url(#linearGradient-2)" points="26.6778243 0 630.993001 0 631.093855 25 54.6908424 25 46.7882317 36 2.56799736e-13 36"></polygon>
+                    <path d="M66.4470725,28 L62.1240725,35 L52.2440725,35 L57.8019526,28 L66.4470725,28 Z M82.0090725,28 L77.6860725,35 L66.5710725,35 L70.8930725,28 L82.0090725,28 Z M97.5710725,28 L93.2490725,35 L82.1330725,35 L86.4560725,28 L97.5710725,28 Z M113.133073,28 L108.811073,35 L97.6950725,35 L102.018073,28 L113.133073,28 Z M128.695073,28 L124.373073,35 L113.257073,35 L117.580073,28 L128.695073,28 Z M352.369596,28 L346.811715,35 L128.819073,35 L133.142073,28 L352.369596,28 Z" id="形状结合" fill="url(#linearGradient-3)"></path>
+                </g>
+                <g id="编组-2" transform="translate(317.990650, 28.000000) scale(-1, 1) translate(-317.990650, -28.000000) translate(0.000000, 10.000000)">
+                    <polygon id="矩形备份-12" fill="url(#linearGradient-4)" points="24 0 635.923017 0 635.981299 25 49.2011719 25 42.0917969 36 2.310231e-13 36"></polygon>
+                    <path d="M59.778,28 L55.889,35 L47,35 L52,28 L59.778,28 Z M73.778,28 L69.889,35 L59.889,35 L63.778,28 L73.778,28 Z M87.778,28 L83.889,35 L73.889,35 L77.778,28 L87.778,28 Z M101.778,28 L97.889,35 L87.889,35 L91.778,28 L101.778,28 Z M115.778,28 L111.889,35 L101.889,35 L105.778,28 L115.778,28 Z M317,28 L312,35 L115.889,35 L119.778,28 L317,28 Z" id="形状结合" fill="url(#linearGradient-5)"></path>
+                </g>
+                <g id="矩形">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                    <use fill="#491D98" fill-rule="evenodd" xlink:href="#path-6"></use>
+                </g>
+                <polyline id="路径-61" stroke="url(#linearGradient-8)" points="777.405127 24.4726563 800.981299 61 824.946143 61"></polyline>
+                <polyline id="路径-61" stroke="url(#linearGradient-8)" transform="translate(1123.175635, 42.736328) scale(-1, 1) translate(-1123.175635, -42.736328) " points="1099.40513 24.4726563 1122.9813 61 1146.94614 61"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

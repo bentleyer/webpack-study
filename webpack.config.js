@@ -13,6 +13,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           'geometry': path.join(__dirname, '/src/pages/geometry/main.js'), // 入口文件
           'point': path.join(__dirname, '/src/pages/point/main.js'), // 入口文件
           'webgl': path.join(__dirname, '/src/pages/webgl/main.js'), // 入口文件
+          'earth': path.join(__dirname, '/src/pages/earth/main.js'), // 入口文件
+          'lantern': path.join(__dirname, '/src/pages/lantern/main.js'), // 入口文件
+          'smoke': path.join(__dirname, '/src/pages/smoke/main.js'), // 入口文件
         },
         output: {
           filename: '[name].bundle.js',
@@ -66,11 +69,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
                 ],
             },
             {
-              test: /\.(png|svg|jpg|gif|hdr)$/,
+              test: /\.(png|svg|jpg|gif|hdr|jpeg|glb)$/,
               use: {
                   loader: 'url-loader'
               }
+            },
+            {
+              test: /\.glsl$/,
+              loader: 'webpack-glsl-loader'
             }
+            
           ]
         },
         plugins: [
@@ -90,6 +98,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           new HtmlWebpackPlugin({ template: './src/index.html', chunks: ['index'], filename: 'index.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/geometry/index.html', chunks: ['point'], filename: 'point.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/webgl/index.html', chunks: ['webgl'], filename: 'webgl.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/earth/index.html', chunks: ['earth'], filename: 'earth.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/lantern/index.html', chunks: ['lantern'], filename: 'lantern.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/smoke/index.html', chunks: ['smoke'], filename: 'smoke.html' }),
           // new HtmlWebpackPlugin({ template: './src/index.html'}),
           new webpack.HotModuleReplacementPlugin(),
           new MiniCssExtractPlugin()
