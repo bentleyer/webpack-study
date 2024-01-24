@@ -16,6 +16,8 @@ uniform float uXzScale;
 
 uniform float uNoiseScale;
 
+uniform float uTime;
+
 varying float vElevation;
 
 // 相机坐标
@@ -79,9 +81,10 @@ void main() {
     vUv = uv;
     
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-
+    // 高度
     float elevation = sin(modelPosition.x * uFrequency * uXzScale) * sin(modelPosition.z * uFrequency * uXzScale);
-    float noise = cnoise(modelPosition.xz * uNoiseFrequency) * uNoiseScale;
+    // 噪音
+    float noise = cnoise(modelPosition.xz * uNoiseFrequency + uTime * 0.5) * uNoiseScale;
     elevation += abs(noise);
     elevation *= uScale;
     vElevation = elevation;

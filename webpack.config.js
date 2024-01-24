@@ -16,6 +16,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           'earth': path.join(__dirname, '/src/pages/earth/main.js'), // 入口文件
           'lantern': path.join(__dirname, '/src/pages/lantern/main.js'), // 入口文件
           'smoke': path.join(__dirname, '/src/pages/smoke/main.js'), // 入口文件
+          'water': path.join(__dirname, '/src/pages/water/main.js'), // 入口文件
+          'city': path.join(__dirname, '/src/pages/city/main.js'), // 入口文件
         },
         output: {
           filename: '[name].bundle.js',
@@ -101,6 +103,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
           new HtmlWebpackPlugin({ template: './src/pages/earth/index.html', chunks: ['earth'], filename: 'earth.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/lantern/index.html', chunks: ['lantern'], filename: 'lantern.html' }),
           new HtmlWebpackPlugin({ template: './src/pages/smoke/index.html', chunks: ['smoke'], filename: 'smoke.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/water/index.html', chunks: ['water'], filename: 'water.html' }),
+          new HtmlWebpackPlugin({ template: './src/pages/city/index.html', chunks: ['city'], filename: 'city.html' }),
           // new HtmlWebpackPlugin({ template: './src/index.html'}),
           new webpack.HotModuleReplacementPlugin(),
           new MiniCssExtractPlugin()

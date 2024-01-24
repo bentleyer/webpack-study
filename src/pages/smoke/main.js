@@ -51,7 +51,10 @@ const params = {
     uScale: 0.5,
     uXzScale: 1,
     uNoiseFrequency: 1,
-    uNoiseScale: 1
+    uNoiseScale: 1,
+    uTime: 0,
+    uLowColor: '#ff0000',
+    uHeightColor: '#ffff00'
 }
 
 gui.add(params, 'uFrequency').min(0).max(20).step(0.1).onChange(() => {
@@ -69,6 +72,14 @@ gui.add(params, 'uNoiseFrequency').min(0).max(5).step(0.1).onChange(() => {
 
 gui.add(params, 'uNoiseScale').min(0).max(5).step(0.1).onChange(() => {
     shaderMaterial.uniforms.uNoiseScale.value = params.uNoiseScale
+})
+
+gui.addColor(params, 'uLowColor').onFinishChange((value) => {
+    shaderMaterial.uniforms.uLowColor.value = new THREE.Color(value)
+})
+
+gui.addColor(params, 'uHeightColor').onFinishChange((value) => {
+    shaderMaterial.uniforms.uHeightColor.value = new THREE.Color(value)
 })
 
 // 创建着色器材质
@@ -92,7 +103,16 @@ const shaderMaterial = new THREE.ShaderMaterial({
         },
         uNoiseScale: {
             value: 1
-        }
+        },
+        uTime: {
+            value: 0
+        },
+        uLowColor: {
+            value: new THREE.Color(params.uLowColor)
+        },
+        uHeightColor: {
+            value: new THREE.Color(params.uHeightColor)
+        },
     }
 })
 
@@ -153,7 +173,7 @@ scene.add(axesHelper)
 
 function render() {
     const time = clock.getElapsedTime()
-    // shaderMaterial.uniforms.uTime.value = time
+    shaderMaterial.uniforms.uTime.value = time
     controls.update()
     // points1.rotation.x = time * 0.3
     // cube.rotation.x += 0.01

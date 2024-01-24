@@ -8,12 +8,43 @@
     <link rel="stylesheet" href="./asset/css/style.css">
 </head>
 <body>
-    <a href="./start.html" target="_blank">start</a>
+    <!-- <a href="./start.html" target="_blank">start</a>
     <a href="./geometry.html" target="_blank">geometry</a>
     <a href="./point.html" target="_blank">point</a>
     <a href="./webgl.html" target="_blank">webgl</a>
     <a href="./earth.html" target="_blank">earth</a>
     <a href="./lantern.html" target="_blank">lantern</a>
     <a href="./smoke.html" target="_blank">smoke</a>
+    <a href="./water.html" target="_blank">water</a>
+    <a href="./city.html" target="_blank">city</a> -->
+    <script>
+        function concatArr(arr1 = [], arr2 = []) {
+            let i1 = 0
+            let i2 = 0
+            let arr = []
+            while(i1 < arr1.length && i2 < arr2.length) {
+                if (arr1[i1] <= arr2[i2]) {
+                    arr.push(arr1[i1])
+                    i1++
+                } else {
+                    arr.push(arr2[i2])
+                    i2++
+                }
+                if (i1 === arr1.length) {
+                    console.log('i1', i1)
+                    arr = arr.concat(arr2.slice(i2))
+                    break
+                }
+                if (i2 === arr2.length) {
+
+                    arr = arr.concat(arr1.slice(i1))
+                    break
+                }
+            }
+            return arr
+        }
+        console.log(concatArr([1, 2, 3, 4, 5], [2, 3, 4, 5, 6]))
+        
+    </script>
 </body>
 </html>
